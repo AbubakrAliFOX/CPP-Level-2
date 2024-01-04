@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+void Func1 ();
 
 void Func4 () {
     cout << "From 4" << endl;

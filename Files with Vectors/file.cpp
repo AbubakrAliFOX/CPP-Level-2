@@ -5,49 +5,104 @@
 
 using namespace std;
 
-void PrintFileToVector(string FileName, vector<string> &vFileContent) {
+void PrintFileToVector(string FileName, vector<string> &vFileContent)
+{
     fstream MyFile;
 
     MyFile.open(FileName, ios::in);
 
-    if (MyFile.is_open()) {
+    if (MyFile.is_open())
+    {
         string Line;
-        while (getline(MyFile, Line)) {
+        while (getline(MyFile, Line))
+        {
             vFileContent.push_back(Line);
         }
 
         MyFile.close();
     }
 }
-void SaveVectorToFile (string FileName, vector <string> vFileContent) {
+void SaveVectorToFile(string FileName, vector<string> vFileContent)
+{
     fstream MyFile;
 
     MyFile.open(FileName, ios::out);
-    if(MyFile.is_open()) {
+    if (MyFile.is_open())
+    {
         for (string &Line : vFileContent)
         {
-            if (Line != "") {
+            if (Line != "")
+            {
                 MyFile << Line << endl;
             }
         }
-        
     }
+}
+
+void PrintFile(string FileName)
+{
+    fstream MyFile;
+
+    MyFile.open(FileName, ios::in);
+
+    if (MyFile.is_open())
+    {
+        string Line;
+        while (getline(MyFile, Line))
+        {
+            cout << Line << endl;
+        }
+
+        MyFile.close();
+    }
+}
+
+void DeleteFromFile(string FileName, string Record)
+{
+    fstream MyFile;
+    vector<string> vNames;
+    PrintFileToVector(FileName, vNames);
+
+    for (string &Line : vNames) 
+    {
+        if (Line == Record) {
+            Line = "";
+        }
+    }
+
+    SaveVectorToFile(FileName, vNames);
+}
+
+void FindAndUpdate(string FileName, string Record, string NewRecord)
+{
+    fstream MyFile;
+    vector<string> vNames;
+    PrintFileToVector(FileName, vNames);
+
+    for (string &Line : vNames) 
+    {
+        if (Line == Record) {
+            Line = NewRecord;
+        }
+    }
+
+    SaveVectorToFile(FileName, vNames);
 }
 
 int main()
 {
-    vector<string> vFileContent;
-    
-    PrintFileToVector("index.js", vFileContent);
 
-    for (string &Line : vFileContent)
-    {
-        cout << Line << endl;
-    }
-    
-    // From v to file
-    vector<string> vNames = {"Ahmad", "Khaled", "Mohammed", "Tara", "Neji", "Abdulla"};
-    SaveVectorToFile("Names.txt", vNames);
+    PrintFile("Names.txt");
+
+    // DeleteFromFile("Names.txt", "Neji");
+
+    // cout << "\n \n After deleting: \n \n";
+    // PrintFile("Names.txt");
+
+    FindAndUpdate("Names.txt", "Tara", "Jojo");
+
+    cout << "\n \n After upadting: \n \n";
+    PrintFile("Names.txt");
 
 
     return 0;

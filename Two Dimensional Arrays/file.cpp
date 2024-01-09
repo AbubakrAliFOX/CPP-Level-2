@@ -25,7 +25,7 @@ void PrintTable(int Number)
     {
         for (int j = 0; j < Number; j++)
         {
-            printf("%0*d ", 2, Table[i][j]);
+            cout << Table[i][j] << endl;
         }
         cout << endl;
     }

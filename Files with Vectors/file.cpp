@@ -19,17 +19,35 @@ void PrintFileToVector(string FileName, vector<string> &vFileContent) {
         MyFile.close();
     }
 }
+void SaveVectorToFile (string FileName, vector <string> vFileContent) {
+    fstream MyFile;
+
+    MyFile.open(FileName, ios::out);
+    if(MyFile.is_open()) {
+        for (string &Line : vFileContent)
+        {
+            if (Line != "") {
+                MyFile << Line << endl;
+            }
+        }
+        
+    }
+}
 
 int main()
 {
     vector<string> vFileContent;
+    
     PrintFileToVector("index.js", vFileContent);
 
-    for (auto &Line : vFileContent)
+    for (string &Line : vFileContent)
     {
         cout << Line << endl;
     }
     
+    // From v to file
+    vector<string> vNames = {"Ahmad", "Khaled", "Mohammed", "Tara", "Neji", "Abdulla"};
+    SaveVectorToFile("Names.txt", vNames);
 
 
     return 0;
